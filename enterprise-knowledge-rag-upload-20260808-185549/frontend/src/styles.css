@@ -129,6 +129,26 @@ body {
   margin-top: 18px;
 }
 
+.upload-form label {
+  display: grid;
+  gap: 8px;
+  color: #425066;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.text-input,
+.eval-form input {
+  height: 42px;
+  min-width: 0;
+  padding: 0 14px;
+  border: 1px solid #ccd5e3;
+  border-radius: 6px;
+  color: #172033;
+  font: inherit;
+  background: #fff;
+}
+
 .file-picker {
   display: flex;
   min-height: 54px;
@@ -258,7 +278,7 @@ button:disabled {
 
 .search-form {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 128px;
+  grid-template-columns: minmax(0, 1fr) 112px 112px;
   gap: 12px;
   margin-top: 18px;
 }
@@ -289,6 +309,34 @@ button:disabled {
   display: grid;
   gap: 12px;
   margin-top: 16px;
+}
+
+.answer-box {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid #b9d7ff;
+  border-radius: 8px;
+  background: #f4f9ff;
+}
+
+.answer-box pre {
+  margin: 12px 0 0;
+  white-space: pre-wrap;
+  color: #172033;
+  font: inherit;
+  line-height: 1.7;
+}
+
+.answer-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: #5b6577;
+  font-size: 13px;
+}
+
+.answer-meta strong {
+  color: #0f63c7;
 }
 
 .chunk-list {
@@ -325,6 +373,69 @@ button:disabled {
 .chunk-note {
   margin-bottom: 0;
   font-size: 13px;
+}
+
+.bottom-grid {
+  align-items: start;
+}
+
+.mini-section + .mini-section {
+  margin-top: 20px;
+}
+
+.mini-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-size: 15px;
+}
+
+.mini-section h3 svg {
+  width: 18px;
+  height: 18px;
+  color: #0f63c7;
+}
+
+.eval-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.small-list {
+  display: grid;
+  gap: 10px;
+}
+
+.small-list article {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border: 1px solid #e3e9f3;
+  border-radius: 8px;
+  background: #fbfcff;
+}
+
+.small-list strong {
+  overflow-wrap: anywhere;
+}
+
+.small-list span {
+  display: -webkit-box;
+  overflow: hidden;
+  color: #5b6577;
+  font-size: 13px;
+  line-height: 1.6;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.small-list button {
+  width: 72px;
+  height: 34px;
+  justify-self: start;
 }
 
 .roadmap {

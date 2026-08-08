@@ -27,15 +27,26 @@ def search_points(
     collection: str,
     vector: list[float],
     limit: int,
+    knowledge_base: str | None = None,
 ) -> list[dict[str, Any]]:
+    body: dict[str, Any] = {
+        "vector": vector,
+        "limit": limit,
+        "with_payload": True,
+    }
+    if knowledge_base and knowledge_base != "default":
+        body["filter"] = {
+            "must": [
+                {
+                    "key": "knowledge_base",
+                    "match": {"value": knowledge_base},
+                }
+            ]
+        }
     response = _request(
         "POST",
         f"{base_url}/collections/{collection}/points/search",
-        {
-            "vector": vector,
-            "limit": limit,
-            "with_payload": True,
-        },
+        body,
     )
     return response.get("result", [])
 

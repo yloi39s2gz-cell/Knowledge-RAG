@@ -11,6 +11,10 @@ class Settings(BaseSettings):
     qdrant_url: str = "http://localhost:6333"
     qdrant_collection: str = "knowledge_chunks"
     embedding_dimension: int = 128
+    app_api_key: str = ""
+    deepseek_api_key: str = ""
+    deepseek_base_url: str = "https://api.deepseek.com"
+    deepseek_model: str = "deepseek-chat"
 
     model_config = SettingsConfigDict(
         env_file=".env",

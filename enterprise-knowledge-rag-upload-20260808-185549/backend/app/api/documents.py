@@ -1,10 +1,11 @@
 from uuid import uuid4
 
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, status
+from fastapi import APIRouter, Depends, Form, HTTPException, UploadFile, status
 from sqlalchemy import delete, select
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
+from app.core.security import require_api_key
 from app.core.storage import save_upload_file
 from app.db.session import get_db
 from app.models.document import Document, DocumentChunk
@@ -23,6 +24,8 @@ router = APIRouter(prefix="/documents", tags=["documents"])
 )
 async def upload_document(
     file: UploadFile,
+    knowledge_base: str = Form(default="default"),
+    _: None = Depends(require_api_key),
     db: Session = Depends(get_db),
 ) -> Document:
     saved_file = await save_upload_file(
@@ -37,6 +40,7 @@ async def upload_document(
         content_type=saved_file.content_type,
         size_bytes=saved_file.size_bytes,
         storage_path=saved_file.storage_path,
+        knowledge_base=knowledge_base.strip() or "default",
         status="uploaded",
     )
     db.add(document)
@@ -54,6 +58,7 @@ def list_documents(db: Session = Depends(get_db)) -> list[Document]:
 @router.post("/{document_id}/parse", response_model=DocumentParseResult)
 def parse_document(
     document_id: str,
+    _: None = Depends(require_api_key),
     db: Session = Depends(get_db),
 ) -> DocumentParseResult:
     document = db.get(Document, document_id)
@@ -115,6 +120,7 @@ def list_document_chunks(
 @router.post("/{document_id}/index", response_model=DocumentIndexResult)
 def index_document(
     document_id: str,
+    _: None = Depends(require_api_key),
     db: Session = Depends(get_db),
 ) -> DocumentIndexResult:
     document = db.get(Document, document_id)
@@ -156,6 +162,8 @@ def index_document(
                         "content": chunk.content,
                         "page_start": chunk.page_start,
                         "page_end": chunk.page_end,
+                        "source_filename": document.original_filename,
+                        "knowledge_base": document.knowledge_base,
                     },
                 }
                 for chunk in chunks
