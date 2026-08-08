@@ -1,0 +1,7 @@
+fastapi==0.116.1
+uvicorn[standard]==0.35.0
+pydantic-settings==2.10.1
+python-multipart==0.0.20
+SQLAlchemy==2.0.45
+pypdf==6.4.1
+python-docx==1.2.0
